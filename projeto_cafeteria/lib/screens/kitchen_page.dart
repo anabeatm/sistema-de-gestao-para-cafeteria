@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:projeto_cafeteria/services/order_service.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class KitchenPage extends StatefulWidget {
   const KitchenPage({super.key});
@@ -88,7 +89,65 @@ class _KitchenPageState extends State<KitchenPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (pendingOrders.isNotEmpty) ...[StatusSection()],
+                  if (pendingOrders.isNotEmpty) ...[
+                    StatusSection(
+                      title: 'Pending',
+                      icon: Icons.pending_outlined,
+                      color: CoffeeColors.error,
+                      orders: pendingOrders,
+                      nextStatus: 'Preparing',
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                  if (preparingOrders.isNotEmpty) ...[
+                    StatusSection(
+                      title: 'Preparing',
+                      icon: Icons.restaurant_rounded,
+                      color: CoffeeColors.warning,
+                      orders: preparingOrders,
+                      nextStatus: 'Ready to go',
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                  if (readyOrders.isNotEmpty) ...[
+                    StatusSection(
+                      title: 'Ready to go',
+                      icon: Icons.check_circle_outline_rounded,
+                      color: CoffeeColors.success,
+                      orders: readyOrders,
+                      nextStatus: 'Completed',
+                    ),
+                  ],
+                  if (pendingOrders.isEmpty &&
+                      preparingOrders.isEmpty &&
+                      readyOrders.isEmpty) ...[
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(60),
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.restaurant_outlined,
+                              size: 80,
+                              color: CoffeeColors.latte,
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "No active requests",
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(color: CoffeeColors.coffeeBrown),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'The orders will appear here',
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(color: CoffeeColors.latte),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -149,6 +208,239 @@ class StatusSection extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class KitchenOrderCard extends StatelessWidget {
+  final MockOrder order;
+  final String nextStatus;
+  final Color color;
+
+  const KitchenOrderCard({
+    required this.order,
+    required this.nextStatus,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.3), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.08),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(
+                        Icons.table_restaurant_rounded,
+                        color: color,
+                        size: 26,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Text(
+                      'Table ${order.tableNumber}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: CoffeeColors.coffeeBrown,
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.access_time_rounded, color: color, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        DateFormat('HH:mm').format(order.createdAt),
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: CoffeeColors.coffeeBrown,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              children: [
+                ...order.items.map(
+                  (item) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 38,
+                          height: 38,
+                          decoration: BoxDecoration(
+                            color: color.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${item.quantity}',
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: color,
+                                ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            item.productName,
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(
+                                  color: CoffeeColors.coffeeBrown,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (order.notes != null) ...[
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: CoffeeColors.beige,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.note_outlined,
+                          size: 18,
+                          color: CoffeeColors.coffeeLight,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            order.notes!,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                  color: CoffeeColors.coffeeLight,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 18),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: color,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Updated order for: $nextStatus'),
+                          backgroundColor: color,
+                        ),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_getButtonIcon(nextStatus), size: 22),
+                        const SizedBox(width: 10),
+                        Text(
+                          _getButtonText(nextStatus),
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+IconData _getButtonIcon(String status) {
+  switch (status) {
+    case 'Preparing':
+      return Icons.play_arrow_rounded;
+    case 'Ready':
+      return Icons.check_rounded;
+    case 'Completed':
+      return Icons.done_all_rounded;
+    default:
+      return Icons.arrow_forward_rounded;
+  }
+}
+
+String _getButtonText(String status) {
+  switch (status) {
+    case 'Preparing':
+      return 'Start Preparation';
+    case 'Ready':
+      return 'Mark as Done';
+    case 'Completed':
+      return 'Complete Order';
+    default:
+      return 'Complete';
   }
 }
 
