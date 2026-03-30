@@ -215,7 +215,7 @@ class KitchenOrderCard extends StatelessWidget {
   final String nextStatus;
   final Color color;
 
-  const KitchenOrderCard({
+  const KitchenOrderCard({super.key, 
     required this.order,
     required this.nextStatus,
     required this.color,
