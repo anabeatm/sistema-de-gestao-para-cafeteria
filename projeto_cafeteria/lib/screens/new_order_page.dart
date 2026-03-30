@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
+import 'package:flutter/material.dart';
 
 class NewOrderPage extends StatelessWidget {
   const NewOrderPage({super.key});
@@ -10,7 +11,7 @@ class NewOrderPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
-        backgroundColor: CoffeeColors.coffeeDark,
+        backgroundColor: CoffeeColors.caramel,
         leading: IconButton(
           icon: Container(
             padding: EdgeInsets.all(8),
@@ -28,7 +29,7 @@ class NewOrderPage extends StatelessWidget {
         ),
         title: Text(
           "Add new order",
-          style: TextStyle(color: CoffeeColors.cream),
+          style: TextStyle(color: CoffeeColors.coffeeBrown),
         ),
         centerTitle: true,
       ),
@@ -36,7 +37,54 @@ class NewOrderPage extends StatelessWidget {
           ? const Center(
               child: CircularProgressIndicator(color: CoffeeColors.coffeeDark),
             )
-          : SingleChildScrollView(),
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Select table',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                    itemCount: 8,
+                    itemBuilder: (context, index) {
+                      int tableNum = index + 1;
+                      return InkWell(
+                        onTap: () {
+                          child:
+                          Container(
+                            decoration: BoxDecoration(
+                              color: CoffeeColors.mocha,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          );
+                        },
+                        child: Center(
+                          child: Text(
+                            "$tableNum",
+                            style: TextStyle(color: CoffeeColors.beige),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
     );
   }
 
