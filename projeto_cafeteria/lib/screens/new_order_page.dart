@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/theme.dart';
-import 'package:go_router/go_router.dart';
 
 class NewOrderPage extends StatelessWidget {
   const NewOrderPage({super.key});
@@ -26,7 +24,7 @@ class NewOrderPage extends StatelessWidget {
               size: 20,
             ),
           ),
-          onPressed: () => context.go(AppRoutes.orders),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           "Add new order",

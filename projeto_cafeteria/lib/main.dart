@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_cafeteria/screens/home_page.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_add.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 
 import 'package:projeto_cafeteria/screens/kitchen_page.dart'; // !!!
-import 'package:projeto_cafeteria/screens/new_order_page.dart';
+
 import 'package:projeto_cafeteria/screens/orders_page.dart';
+import 'package:projeto_cafeteria/screens/new_order_page.dart';
+
+import 'package:projeto_cafeteria/config/routes.dart';
 
 import 'package:provider/provider.dart';
 import 'package:projeto_cafeteria/theme.dart';
-import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/services/product_service.dart';
 import 'package:projeto_cafeteria/services/order_service.dart';
 import 'package:projeto_cafeteria/services/inventory_service.dart';
@@ -32,14 +39,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserService()),
       ],
       child: MaterialApp(
-        //.router <--- child: MaterialApp.router() para ter as rotas das outras telas
         title: 'Sistema de Gerenciamento de Cafeteria',
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.system,
-        home: const NewOrderPage(),
-        // routerConfig: AppRouter.router, <-- descomentar depois
+        routes: {
+          Routes.home: (context) => const HomePage(),
+          Routes.inventory: (context) => const InventoryPage(),
+          Routes.inventoryAdd: (context) => const InventoryAddPage(),
+          Routes.inventoryEdit: (context) => const InventoryEditPage(),
+          Routes.inventoryMovement: (context) => const InventoryMovementPage(),
+          Routes.orders: (context) => const OrdersPage(),
+          Routes.newOrder: (context) => const NewOrderPage(),
+          Routes.kitchen: (context) => const KitchenPage(),
+        },
       ),
     );
   }

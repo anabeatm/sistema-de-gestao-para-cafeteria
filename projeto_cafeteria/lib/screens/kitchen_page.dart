@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projeto_cafeteria/services/order_service.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +72,7 @@ class _KitchenPageState extends State<KitchenPage> {
               size: 20,
             ),
           ),
-          onPressed: () => context.pop(),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text("Kitchen"),
         centerTitle: true,

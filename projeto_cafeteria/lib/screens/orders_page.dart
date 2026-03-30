@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:projeto_cafeteria/config/Routes.dart';
 // Importe seu arquivo de rotas para usar o AppRoutes
-import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/theme.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -28,7 +27,7 @@ class OrdersPage extends StatelessWidget {
               size: 20,
             ),
           ),
-          onPressed: () => context.go(AppRoutes.home),
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text('Order list', style: TextStyle()),
         centerTitle: true,
@@ -70,7 +69,7 @@ class OrdersPage extends StatelessWidget {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.go(AppRoutes.newOrder);
+          Navigator.pushNamed(context, Routes.newOrder);
         },
         child: const Icon(Icons.add),
       ),
