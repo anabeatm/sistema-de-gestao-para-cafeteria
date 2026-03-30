@@ -77,6 +77,7 @@ class OrdersPage extends StatelessWidget {
     );
   }
 
+  // depois vai receber os dados do objeto de Pedido
   Widget _buildOrderCard(
     BuildContext context,
     String mesa,

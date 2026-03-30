@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:projeto_cafeteria/screens/kitchen_page.dart'; // !!!
+import 'package:projeto_cafeteria/screens/new_order_page.dart';
 import 'package:projeto_cafeteria/screens/orders_page.dart';
 
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: ThemeMode.system,
-        home: const OrdersPage(),
+        home: const NewOrderPage(),
         // routerConfig: AppRouter.router, <-- descomentar depois
       ),
     );
