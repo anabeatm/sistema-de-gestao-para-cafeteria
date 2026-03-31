@@ -117,11 +117,9 @@ class HomePage extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
-        elevation: 2,
         padding: const EdgeInsets.all(12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: const BorderSide(color: CoffeeColors.coffeeBrown, width: 2),
         ),
       ),
       child: Column(
