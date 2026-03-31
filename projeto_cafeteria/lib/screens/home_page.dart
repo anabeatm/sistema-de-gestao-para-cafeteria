@@ -8,48 +8,155 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CoffeeColors.cream,
-      appBar: AppBar(
-        backgroundColor: CoffeeColors.cream,
-        foregroundColor: CoffeeColors.coffeeBrown,
-        elevation: 0,
-        title: const Text("Home"),
-        centerTitle: true,
-      ),
+      backgroundColor: CoffeeColors.coffeeLight,
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildButton(context, "Inventory", Routes.inventory),
-            const SizedBox(height: 16),
-            _buildButton(context, "Orders", Routes.orders),
-            const SizedBox(height: 16),
-            _buildButton(context, "Kitchen", Routes.kitchen),
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: CoffeeColors.coffeeBrown,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  padding: const EdgeInsets.all(12),
+                  child: const Icon(Icons.coffee, color: Colors.white),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "CafeFlow",
+                      style: TextStyle(
+                        fontFamily: AppFonts.mainFont,
+                        fontSize: FontSize.xg,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Management System",
+                      style: TextStyle(
+                        fontFamily: AppFonts.mainFont,
+                        fontSize: FontSize.md,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+
+            const Text(
+              'Modules',
+              style: TextStyle(
+                fontFamily: AppFonts.mainFont,
+                fontSize: FontSize.g,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Expanded( 
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                children: [
+                  _buildButton(
+                    context,
+                    icon: Icons.receipt_long,
+                    title: "Orders",
+                    description: "View customer orders",
+                    route: Routes.orders,
+                  ),
+                  _buildButton(
+                    context,
+                    icon: Icons.coffee_maker,
+                    title: "Kitchen",
+                    description: "Prepare orders",
+                    route: Routes.kitchen,
+                  ),
+                  _buildButton(
+                    context,
+                    icon: Icons.inventory_2,
+                    title: "Inventory",
+                    description: "Manage stock items",
+                    route: Routes.inventory,
+                  ),
+                  _buildButton(
+                    context,
+                    icon: Icons.menu_book,
+                    title: "Menu",
+                    description: "View menu",
+                    route: Routes.menu,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildButton(BuildContext context, String title, String route) {
-    return SizedBox(
-      width: double.infinity,
-      height: 60,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: CoffeeColors.coffeeBrown,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+  Widget _buildButton(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String description,
+    required String route,
+  }) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.pushNamed(context, route);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        elevation: 2,
+        padding: const EdgeInsets.all(12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+          side: const BorderSide(color: CoffeeColors.coffeeBrown, width: 2),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 42,
+            backgroundColor: Colors.grey[350],
+            child: Icon(icon, color: CoffeeColors.coffeeBrown, size: 42),
           ),
-        ),
-        onPressed: () {
-          Navigator.pushNamed(context, route);
-        },
-        child: Text(
-          title,
-          style: const TextStyle(fontSize: 18),
-        ),
+
+          const SizedBox(height: 12),
+
+          Text(
+            title,
+            style: const TextStyle(
+              color: CoffeeColors.coffeeBrown,
+              fontFamily: AppFonts.mainFont,
+              fontSize: FontSize.md,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          Text(
+            description,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontFamily: AppFonts.mainFont,
+              fontSize: FontSize.p,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }

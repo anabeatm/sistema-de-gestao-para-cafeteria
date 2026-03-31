@@ -50,9 +50,18 @@ class MyApp extends StatelessWidget {
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
           Routes.inventoryEdit: (context) => const InventoryEditPage(),
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
+          // Routes.inventoryStock: (context) => const InventoryStockPage(),
+          // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
+          // Routes.lowStock: (context) => const LowStockPage(),
+          // Routes.filteredList: (context) => const FilteredListPage(),
+          // Routes.consumptionReport: (context) => const ConsumptionReportPage(),
+
           Routes.orders: (context) => const OrdersPage(),
-          Routes.newOrder: (context) => NewOrderPage(),
+          Routes.newOrder: (context) => const NewOrderPage(),
+
           Routes.kitchen: (context) => const KitchenPage(),
+
+          // Routes.menu: (context) => const MenuPage(),
         },
       ),
     );
