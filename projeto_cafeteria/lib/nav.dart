@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:projeto_cafeteria/screens/home_page.dart';
-import 'package:projeto_cafeteria/screens/orders_page.dart';
-import 'package:projeto_cafeteria/screens/new_order_page.dart';
+import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
+import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
 import 'package:projeto_cafeteria/screens/kitchen_page.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 import 'package:projeto_cafeteria/screens/menu_page.dart';

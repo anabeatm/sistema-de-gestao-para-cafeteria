@@ -7,8 +7,8 @@ import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 
 import 'package:projeto_cafeteria/screens/kitchen_page.dart'; // !!!
 
-import 'package:projeto_cafeteria/screens/orders_page.dart';
-import 'package:projeto_cafeteria/screens/new_order_page.dart';
+import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
+import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
 
 import 'package:projeto_cafeteria/config/routes.dart';
 
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           Routes.inventoryEdit: (context) => const InventoryEditPage(),
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
           Routes.orders: (context) => const OrdersPage(),
-          Routes.newOrder: (context) => const NewOrderPage(),
+          Routes.newOrder: (context) => NewOrderPage(),
           Routes.kitchen: (context) => const KitchenPage(),
         },
       ),

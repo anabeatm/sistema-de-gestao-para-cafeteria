@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:flutter/material.dart';
 
-class NewOrderPage extends StatelessWidget {
+class NewOrderPage extends StatefulWidget {
   const NewOrderPage({super.key});
+  // método obrigatório que conecta com o estado
+  @override
+  State<NewOrderPage> createState() => _NewOrdersPageState();
+}
 
+// classe stateful
+class _NewOrdersPageState extends State<NewOrderPage> {
   @override
   Widget build(BuildContext context) {
     const isLoading = false;
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
-        backgroundColor: CoffeeColors.caramel,
+        backgroundColor: CoffeeColors.coffeeLight,
         leading: IconButton(
           icon: Container(
             padding: EdgeInsets.all(8),
@@ -29,7 +35,7 @@ class NewOrderPage extends StatelessWidget {
         ),
         title: Text(
           "Add new order",
-          style: TextStyle(color: CoffeeColors.coffeeBrown),
+          style: TextStyle(color: CoffeeColors.cream),
         ),
         centerTitle: true,
       ),
@@ -60,27 +66,34 @@ class NewOrderPage extends StatelessWidget {
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                         ),
-                    itemCount: 8,
+                    itemCount: 12,
                     itemBuilder: (context, index) {
                       int tableNum = index + 1;
                       return InkWell(
-                        onTap: () {
-                          child:
-                          Container(
-                            decoration: BoxDecoration(
-                              color: CoffeeColors.mocha,
-                              borderRadius: BorderRadius.circular(12),
+                        onTap: () {},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: CoffeeColors.mocha,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "$tableNum",
+                              style: TextStyle(color: CoffeeColors.beige),
                             ),
-                          );
-                        },
-                        child: Center(
-                          child: Text(
-                            "$tableNum",
-                            style: TextStyle(color: CoffeeColors.beige),
                           ),
                         ),
                       );
                     },
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    "order Items",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeDark,
+                    ),
                   ),
                 ],
               ),
