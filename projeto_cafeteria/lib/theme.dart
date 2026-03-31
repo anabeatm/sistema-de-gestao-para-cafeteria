@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+class AppFonts {
+  static const mainFont = 'IBM-PlexSans';
+
+  static const TextStyle font = TextStyle(fontFamily: mainFont);
+}
+
+class FontSize {
+  static const xp = 8.0;
+  static const p = 12.0;
+  static const md = 16.0;
+  static const g = 20.0;
+  static const xg = 24.0;
+  static const xxg = 28.0;
+}
+
 class CoffeeColors {
   static const coffeeBrown = Color(0xFF3E2723);
   static const coffeeLight = Color(0xFF5D4037);

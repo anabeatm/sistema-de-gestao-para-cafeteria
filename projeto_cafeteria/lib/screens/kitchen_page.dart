@@ -20,10 +20,10 @@ class _KitchenPageState extends State<KitchenPage> {
       tableNumber: 4,
       createdAt: DateTime.now().subtract(const Duration(minutes: 12)),
       items: [
-        MockOrderItem(quantity: 2, productName: "Café expresso"),
+        MockOrderItem(quantity: 2, productName: "Expresso Coffee"),
         MockOrderItem(quantity: 1, productName: "Pão de Queijo"),
       ],
-      notes: "Com açucar",
+      notes: "without sugar",
     ),
   ];
 
@@ -34,7 +34,7 @@ class _KitchenPageState extends State<KitchenPage> {
       createdAt: DateTime.now().subtract(const Duration(minutes: 25)),
       items: [
         MockOrderItem(quantity: 1, productName: 'Cappuccino'),
-        MockOrderItem(quantity: 1, productName: 'Bolo de Cenoura'),
+        MockOrderItem(quantity: 1, productName: 'Carriot cake'),
       ],
     ),
   ];
@@ -45,10 +45,10 @@ class _KitchenPageState extends State<KitchenPage> {
       tableNumber: 6,
       createdAt: DateTime.now().subtract(const Duration(minutes: 40)),
       items: [
-        MockOrderItem(quantity: 3, productName: 'Suco de Laranja'),
-        MockOrderItem(quantity: 3, productName: 'Croissant de Frango'),
+        MockOrderItem(quantity: 3, productName: 'Orange juice'),
+        MockOrderItem(quantity: 3, productName: 'Chicken Croissant'),
       ],
-      notes: 'Embalar para viagem',
+      notes: 'delivery',
     ),
   ];
 
@@ -74,7 +74,13 @@ class _KitchenPageState extends State<KitchenPage> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text("Kitchen"),
+        title: Text(
+          "Kitchen",
+          style: TextStyle(
+            fontFamily: AppFonts.mainFont,
+            fontSize: FontSize.xg,
+          ),
+        ),
         centerTitle: true,
       ),
       body: isLoading
@@ -134,13 +140,19 @@ class _KitchenPageState extends State<KitchenPage> {
                             Text(
                               "No active requests",
                               style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(color: CoffeeColors.coffeeBrown),
+                                  ?.copyWith(
+                                    color: CoffeeColors.coffeeBrown,
+                                    fontFamily: AppFonts.mainFont,
+                                  ),
                             ),
                             const SizedBox(height: 8),
                             Text(
                               'The orders will appear here',
                               style: Theme.of(context).textTheme.bodyLarge
-                                  ?.copyWith(color: CoffeeColors.latte),
+                                  ?.copyWith(
+                                    color: CoffeeColors.latte,
+                                    fontFamily: AppFonts.mainFont,
+                                  ),
                             ),
                           ],
                         ),
@@ -215,7 +227,8 @@ class KitchenOrderCard extends StatelessWidget {
   final String nextStatus;
   final Color color;
 
-  const KitchenOrderCard({super.key, 
+  const KitchenOrderCard({
+    super.key,
     required this.order,
     required this.nextStatus,
     required this.color,
@@ -270,6 +283,7 @@ class KitchenOrderCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: CoffeeColors.coffeeBrown,
+                        fontFamily: AppFonts.mainFont,
                       ),
                     ),
                   ],
@@ -292,6 +306,7 @@ class KitchenOrderCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: CoffeeColors.coffeeBrown,
                           fontWeight: FontWeight.w600,
+                          fontFamily: AppFonts.mainFont,
                         ),
                       ),
                     ],
@@ -323,6 +338,7 @@ class KitchenOrderCard extends StatelessWidget {
                                 ?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: color,
+                                  fontFamily: AppFonts.mainFont,
                                 ),
                           ),
                         ),
@@ -334,6 +350,7 @@ class KitchenOrderCard extends StatelessWidget {
                                 ?.copyWith(
                                   color: CoffeeColors.coffeeBrown,
                                   fontWeight: FontWeight.w500,
+                                  fontFamily: AppFonts.mainFont,
                                 ),
                           ),
                         ),
@@ -364,6 +381,7 @@ class KitchenOrderCard extends StatelessWidget {
                                 ?.copyWith(
                                   fontStyle: FontStyle.italic,
                                   color: CoffeeColors.coffeeLight,
+                                  fontFamily: AppFonts.mainFont,
                                 ),
                           ),
                         ),
@@ -386,7 +404,10 @@ class KitchenOrderCard extends StatelessWidget {
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Updated order for: $nextStatus'),
+                          content: Text(
+                            'Updated order for: $nextStatus',
+                            style: TextStyle(fontFamily: AppFonts.mainFont),
+                          ),
                           backgroundColor: color,
                         ),
                       );
@@ -402,6 +423,7 @@ class KitchenOrderCard extends StatelessWidget {
                               ?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
+                                fontFamily: AppFonts.mainFont,
                               ),
                         ),
                       ],
