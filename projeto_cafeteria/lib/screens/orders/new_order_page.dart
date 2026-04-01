@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NewOrderPage extends StatefulWidget {
   const NewOrderPage({super.key});
@@ -11,6 +13,8 @@ class NewOrderPage extends StatefulWidget {
 
 // classe stateful
 class _NewOrdersPageState extends State<NewOrderPage> {
+  int? selectedTable;
+
   @override
   Widget build(BuildContext context) {
     const isLoading = false;
@@ -35,7 +39,10 @@ class _NewOrdersPageState extends State<NewOrderPage> {
         ),
         title: Text(
           "Add new order",
-          style: TextStyle(color: CoffeeColors.cream),
+          style: TextStyle(
+            fontFamily: AppFonts.mainFont,
+            color: CoffeeColors.cream,
+          ),
         ),
         centerTitle: true,
       ),
@@ -49,52 +56,60 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Select table',
+                    'Table selection',
                     style: TextStyle(
+                      fontFamily: AppFonts.mainFont,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: CoffeeColors.coffeeBrown,
                     ),
                   ),
                   const SizedBox(height: 16),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                    itemCount: 12,
-                    itemBuilder: (context, index) {
-                      int tableNum = index + 1;
-                      return InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: CoffeeColors.mocha,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "$tableNum",
-                              style: TextStyle(color: CoffeeColors.beige),
-                            ),
-                          ),
-                        ),
+
+                  ListTile(
+                    tileColor: CoffeeColors.beige,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    leading: const Icon(
+                      Icons.table_restaurant,
+                      color: CoffeeColors.coffeeDark,
+                    ),
+                    title: const Text(
+                      "Selected table",
+                      style: TextStyle(fontFamily: AppFonts.mainFont),
+                    ),
+                    trailing: Text(
+                      selectedTable == null
+                          ? "Select table >"
+                          : "Table $selectedTable",
+                      style: const TextStyle(
+                        fontFamily: AppFonts.mainFont,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onTap: () async {
+                      final result = await context.push<int>(
+                        AppRoutes.tableSelection,
                       );
+                      if (result != null) {
+                        setState(() => selectedTable = result);
+                      }
                     },
                   ),
+
                   const SizedBox(height: 24),
+
                   const Text(
-                    "order Items",
+                    "Order Items",
                     style: TextStyle(
                       fontSize: 18,
+                      fontFamily: AppFonts.mainFont,
                       fontWeight: FontWeight.bold,
                       color: CoffeeColors.coffeeDark,
                     ),
                   ),
+                  // _buildOrderCard --> aqui
                 ],
               ),
             ),
