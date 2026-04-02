@@ -9,6 +9,7 @@ import 'package:projeto_cafeteria/screens/kitchen_page.dart'; // !!!
 
 import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
 import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
+import 'package:projeto_cafeteria/screens/orders/table_selection_page.dart';
 
 import 'package:projeto_cafeteria/config/routes.dart';
 
@@ -50,15 +51,15 @@ class MyApp extends StatelessWidget {
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
           Routes.inventoryEdit: (context) => const InventoryEditPage(),
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
+
           // Routes.inventoryStock: (context) => const InventoryStockPage(),
           // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
           // Routes.lowStock: (context) => const LowStockPage(),
           // Routes.filteredList: (context) => const FilteredListPage(),
           // Routes.consumptionReport: (context) => const ConsumptionReportPage(),
-
           Routes.orders: (context) => const OrdersPage(),
           Routes.newOrder: (context) => const NewOrderPage(),
-
+          Routes.tableSelection: (context) => const TableSelectionPage(),
           Routes.kitchen: (context) => const KitchenPage(),
 
           // Routes.menu: (context) => const MenuPage(),

@@ -3,6 +3,7 @@ import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:projeto_cafeteria/config/routes.dart';
 
 class NewOrderPage extends StatefulWidget {
   const NewOrderPage({super.key});
@@ -77,39 +78,50 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                     ),
                     title: const Text(
                       "Selected table",
-                      style: TextStyle(fontFamily: AppFonts.mainFont),
+                      style: TextStyle(
+                        color: CoffeeColors.coffeeDark,
+                        fontFamily: AppFonts.mainFont,
+                      ),
                     ),
                     trailing: Text(
                       selectedTable == null
-                          ? "Select table >"
+                          ? "Click here to select"
                           : "Table $selectedTable",
                       style: const TextStyle(
+                        color: CoffeeColors.coffeeBrown,
                         fontFamily: AppFonts.mainFont,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     onTap: () async {
-                      final result = await context.push<int>(
-                        AppRoutes.tableSelection,
-                      );
+                      // Continua rodando sem travar ---> Futures
+                      final result =
+                          await Navigator.pushNamed(
+                                context,
+                                // espera até receber essa informação apra descer para linha de baixo do IF
+                                Routes.tableSelection,
+                              )
+                              as int?;
                       if (result != null) {
                         setState(() => selectedTable = result);
                       }
                     },
                   ),
 
-                  const SizedBox(height: 24),
-
-                  const Text(
-                    "Order Items",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: AppFonts.mainFont,
-                      fontWeight: FontWeight.bold,
-                      color: CoffeeColors.coffeeDark,
+                  const SizedBox(
+                    height: double.maxFinite,
+                    width: double.infinity,
+                    child: const Text(
+                      "Order Items",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: AppFonts.mainFont,
+                        fontWeight: FontWeight.bold,
+                        color: CoffeeColors.coffeeDark,
+                      ),
                     ),
                   ),
-                  // _buildOrderCard --> aqui
                 ],
               ),
             ),

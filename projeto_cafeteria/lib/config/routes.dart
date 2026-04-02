@@ -13,6 +13,7 @@ class Routes {
 
   static String orders = '/orders';
   static String newOrder = '/orders/new';
+  static String tableSelection = '/table-selection';
 
   static String kitchen = '/kitchen';
 
