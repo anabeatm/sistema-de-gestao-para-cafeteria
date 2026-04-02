@@ -21,6 +21,7 @@ class CoffeeColors {
   static const coffeeDark = Color(0xFF1B0000);
 
   static const cream = Color(0xFFF5F0E6);
+  static const warmCream = Color.fromARGB(255, 244, 235, 223);
   static const beige = Color(0xFFE8DED1);
   static const caramel = Color(0xFFD4A574);
 
