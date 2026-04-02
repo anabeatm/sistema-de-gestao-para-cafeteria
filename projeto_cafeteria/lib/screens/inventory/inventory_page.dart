@@ -384,7 +384,7 @@ class _ListInventoryItems extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${item.quantity} ${item.unit}',
+                          '${item.quantity} ${item.unit.name}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: AppFonts.mainFont,
@@ -410,7 +410,7 @@ class _ListInventoryItems extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${item.minQuantity} ${item.unit}',
+                          '${item.minQuantity} ${item.unit.name}',
                           style: const TextStyle(
                             fontFamily: AppFonts.mainFont,
                             color: CoffeeColors.coffeeBrown,

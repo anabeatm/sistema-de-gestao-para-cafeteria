@@ -1,9 +1,9 @@
-import 'package:projeto_cafeteria/models/enums/inventory_category.dart';
+import 'package:projeto_cafeteria/models/enums/inventory_enums.dart';
 
 class InventoryItem {
   final String id;
   final String name;
-  final String unit;
+  final InventoryUnit unit;
   final double quantity;
   final double minQuantity;
   final InventoryCategory category;
@@ -28,7 +28,7 @@ class InventoryItem {
   InventoryItem copyWith({
     String? id,
     String? name,
-    String? unit,
+    InventoryUnit? unit,
     double? quantity,
     double? minQuantity,
     InventoryCategory? category,

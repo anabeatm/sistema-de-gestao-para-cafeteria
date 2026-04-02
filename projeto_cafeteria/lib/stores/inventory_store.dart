@@ -1,5 +1,5 @@
 import '../models/inventory_item.dart';
-import 'package:projeto_cafeteria/models/enums/inventory_category.dart';
+import 'package:projeto_cafeteria/models/enums/inventory_enums.dart';
 
 class InventoryStore {
   static final List<InventoryItem> _items = _seed();
@@ -61,7 +61,7 @@ class InventoryStore {
       InventoryItem(
         id: '1',
         name: 'Coffee',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 500,
         minQuantity: 100,
         category: InventoryCategory.base,
@@ -71,7 +71,7 @@ class InventoryStore {
       InventoryItem(
         id: '2',
         name: 'Water',
-        unit: 'ml',
+        unit: InventoryUnit.ml,
         quantity: 2000,
         minQuantity: 500,
         category: InventoryCategory.base,
@@ -81,7 +81,7 @@ class InventoryStore {
       InventoryItem(
         id: '3',
         name: 'Milk',
-        unit: 'ml',
+        unit: InventoryUnit.ml,
         quantity: 1000,
         minQuantity: 300,
         category: InventoryCategory.dairy,
@@ -91,7 +91,7 @@ class InventoryStore {
       InventoryItem(
         id: '4',
         name: 'Mint',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 0,
         minQuantity: 30,
         category: InventoryCategory.herb,
@@ -101,7 +101,7 @@ class InventoryStore {
       InventoryItem(
         id: '5',
         name: 'Honey',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 0,
         minQuantity: 50,
         category: InventoryCategory.sweetener,
@@ -111,7 +111,7 @@ class InventoryStore {
       InventoryItem(
         id: '6',
         name: 'Black Tea',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 25,
         minQuantity: 50,
         category: InventoryCategory.tea,
@@ -121,7 +121,7 @@ class InventoryStore {
       InventoryItem(
         id: '7',
         name: 'Green Tea',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 220,
         minQuantity: 50,
         category: InventoryCategory.tea,
@@ -131,7 +131,7 @@ class InventoryStore {
       InventoryItem(
         id: '8',
         name: 'Cinnamon',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 100,
         minQuantity: 20,
         category: InventoryCategory.spice,
@@ -141,7 +141,7 @@ class InventoryStore {
       InventoryItem(
         id: '9',
         name: 'Chocolate',
-        unit: 'g',
+        unit: InventoryUnit.g,
         quantity: 50,
         minQuantity: 100,
         category: InventoryCategory.sweet,
@@ -151,7 +151,7 @@ class InventoryStore {
       InventoryItem(
         id: '10',
         name: 'Detergent',
-        unit: 'ml',
+        unit: InventoryUnit.ml,
         quantity: 500,
         minQuantity: 200,
         category: InventoryCategory.cleaning,
@@ -161,7 +161,7 @@ class InventoryStore {
       InventoryItem(
         id: '11',
         name: 'Portafilter',
-        unit: 'un',
+        unit: InventoryUnit.un,
         quantity: 2,
         minQuantity: 1,
         category: InventoryCategory.equipment,
@@ -171,7 +171,7 @@ class InventoryStore {
       InventoryItem(
         id: '12',
         name: 'Notebook',
-        unit: 'un',
+        unit: InventoryUnit.un,
         quantity: 2,
         minQuantity: 1,
         category: InventoryCategory.other,
