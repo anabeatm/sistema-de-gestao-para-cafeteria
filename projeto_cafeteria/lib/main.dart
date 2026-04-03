@@ -5,7 +5,10 @@ import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 
-import 'package:projeto_cafeteria/screens/kitchen/kitchen_page.dart'; // !!!
+import 'package:projeto_cafeteria/screens/kitchen/kitchen_page.dart';
+import 'package:projeto_cafeteria/screens/kitchen/pending_orders_page.dart';
+import 'package:projeto_cafeteria/screens/kitchen/preparing_orders_page.dart';
+import 'package:projeto_cafeteria/screens/kitchen/ready_orders_page.dart'; // !!!
 
 import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
 import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
@@ -60,7 +63,11 @@ class MyApp extends StatelessWidget {
           Routes.orders: (context) => const OrdersPage(),
           Routes.newOrder: (context) => const NewOrderPage(),
           Routes.tableSelection: (context) => const TableSelectionPage(),
+          
           Routes.kitchen: (context) => const KitchenPage(),
+          Routes.pendingOrders: (context) => const PendingOrdersPage(),
+          Routes.preparingOrders: (context) => const PreparingOrdersPage(),
+          Routes.readyOrders: (context) => const ReadyOrdersPage(),
 
           // Routes.menu: (context) => const MenuPage(),
         },
