@@ -111,7 +111,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                   const SizedBox(
                     height: double.maxFinite,
                     width: double.infinity,
-                    child: const Text(
+                    child: Text(
                       "Order Items",
                       textAlign: TextAlign.center,
                       style: TextStyle(
