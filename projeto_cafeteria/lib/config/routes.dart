@@ -15,7 +15,10 @@ class Routes {
   static String newOrder = '/orders/new';
   static String tableSelection = '/table-selection';
 
-  static String kitchen = '/kitchen';
+  static String kitchen = '/kitchen/kitchen_page';
+  static String pendingOrders = '/kitchen/pending_orders_page';
+  static String preparingOrders = '/kitchen/preparing_orders_page';
+  static String readyOrders = '/kitchen/ready_orders_page';
 
   static String menu = '/menu';
 }
