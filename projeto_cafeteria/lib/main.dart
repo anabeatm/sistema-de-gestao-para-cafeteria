@@ -5,7 +5,7 @@ import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 
-import 'package:projeto_cafeteria/screens/kitchen_page.dart'; // !!!
+import 'package:projeto_cafeteria/screens/kitchen/kitchen_page.dart'; // !!!
 
 import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
 import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
