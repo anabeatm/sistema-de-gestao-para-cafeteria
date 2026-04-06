@@ -7,6 +7,7 @@ import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 import 'package:projeto_cafeteria/screens/menu_page.dart';
 import 'package:projeto_cafeteria/screens/user_page.dart';
 import 'package:projeto_cafeteria/screens/orders/table_selection_page.dart';
+import 'package:projeto_cafeteria/screens/orders/order_categories_page.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -23,6 +24,12 @@ class AppRouter {
         name: 'orders',
         pageBuilder: (context, state) =>
             NoTransitionPage(child: const OrdersPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.categories,
+        name: 'order-categories',
+        pageBuilder: (context, state) =>
+            NoTransitionPage(child: const CategoriesPage()),
       ),
       GoRoute(
         path: AppRoutes.newOrder,
@@ -73,4 +80,5 @@ class AppRoutes {
   static const String menu = '/menu';
   static const String user = '/user';
   static const String tableSelection = '/table-section';
+  static const String categories = '/order-categories';
 }

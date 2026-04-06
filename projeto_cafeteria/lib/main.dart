@@ -13,6 +13,11 @@ import 'package:projeto_cafeteria/screens/kitchen/ready_orders_page.dart'; // !!
 import 'package:projeto_cafeteria/screens/orders/orders_page.dart';
 import 'package:projeto_cafeteria/screens/orders/new_order_page.dart';
 import 'package:projeto_cafeteria/screens/orders/table_selection_page.dart';
+import 'package:projeto_cafeteria/screens/orders/order_categories_page.dart';
+import 'package:projeto_cafeteria/screens/orders/product_datail_page.dart';
+import 'package:projeto_cafeteria/screens/orders/success_order_page.dart';
+import 'package:projeto_cafeteria/screens/orders/order_sumary_page.dart';
+import 'package:projeto_cafeteria/models/menu_product.dart';
 
 import 'package:projeto_cafeteria/config/routes.dart';
 
@@ -63,7 +68,14 @@ class MyApp extends StatelessWidget {
           Routes.orders: (context) => const OrdersPage(),
           Routes.newOrder: (context) => const NewOrderPage(),
           Routes.tableSelection: (context) => const TableSelectionPage(),
-          
+          Routes.categories: (context) => const CategoriesPage(),
+          Routes.success: (context) => const SuccessPage(),
+          Routes.productDetail: (context) => const ProductDetailPage(),
+          Routes.itemsSummary: (context) {
+            final order =
+                ModalRoute.of(context)!.settings.arguments as List<MenuProduct>;
+            return OrderSummaryPage(order: order);
+          },
           Routes.kitchen: (context) => const KitchenPage(),
           Routes.pendingOrders: (context) => const PendingOrdersPage(),
           Routes.preparingOrders: (context) => const PreparingOrdersPage(),

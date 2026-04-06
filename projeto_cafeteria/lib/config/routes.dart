@@ -14,6 +14,10 @@ class Routes {
   static String orders = '/orders';
   static String newOrder = '/orders/new';
   static String tableSelection = '/table-selection';
+  static String categories = '/order-categories';
+  static String success = '/success-order';
+  static String productDetail = '/product-detail';
+  static String itemsSummary = '/inventory/report';
 
   static String kitchen = '/kitchen/kitchen_page';
   static String pendingOrders = '/kitchen/pending_orders_page';

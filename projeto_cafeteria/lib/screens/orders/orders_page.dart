@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_cafeteria/config/Routes.dart';
-// Importe seu arquivo de rotas para usar o AppRoutes
+import 'package:projeto_cafeteria/config/routes.dart';
 import 'package:projeto_cafeteria/theme.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -69,14 +68,13 @@ class OrdersPage extends StatelessWidget {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.newOrder);
+          Navigator.pushNamed(context, Routes.categories);
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  // depois vai receber os dados do objeto de Pedido
   Widget _buildOrderCard(
     BuildContext context,
     String mesa,
@@ -84,13 +82,12 @@ class OrdersPage extends StatelessWidget {
     String status,
   ) {
     return Card(
-      color: CoffeeColors.cream, // Fundo claro
+      color: CoffeeColors.cream,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       child: Column(
         children: [
-          // mesa e status
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -135,7 +132,7 @@ class OrdersPage extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: CoffeeColors.mocha.withOpacity(1.0),
+                    color: CoffeeColors.mocha.withValues(alpha: 1.0),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -150,7 +147,6 @@ class OrdersPage extends StatelessWidget {
             ),
           ),
 
-          // produtos
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -163,10 +159,9 @@ class OrdersPage extends StatelessWidget {
             ),
           ),
 
-          // rodape
           Container(
             padding: const EdgeInsets.all(16),
-            color: CoffeeColors.coffeeBrown, //shadow box
+            color: CoffeeColors.coffeeBrown,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
