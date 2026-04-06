@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/screens/home_page.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_add.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_filterlist.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_list.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_lowstock.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
@@ -61,12 +62,11 @@ class MyApp extends StatelessWidget {
           Routes.inventoryList: (context) => const InventoryList(),
           Routes.lowStock: (context) => const LowStockPage(),
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
-          
-          // Routes.inventoryEdit: (context) => const InventoryEditPage(),
+          Routes.filteredList: (context) => const InventoryFilterList(),
+
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
           // Routes.inventoryStock: (context) => const InventoryStockPage(),
           // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
-          // Routes.filteredList: (context) => const FilteredListPage(),
           // Routes.consumptionReport: (context) => const ConsumptionReportPage(),
           Routes.orders: (context) => const OrdersPage(),
           Routes.newOrder: (context) => const NewOrderPage(),
