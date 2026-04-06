@@ -24,7 +24,16 @@ class PreparingOrdersPage extends StatelessWidget {
           final orders = orderService.preparingOrders;
 
           if (orders.isEmpty) {
-            return const Center(child: Text("No preparing orders!"));
+            return const Center(
+              child: Text(
+                "No preparing orders at the moment!",
+                style: TextStyle(
+                  fontFamily: AppFonts.mainFont,
+                  fontSize: FontSize.md,
+                  color: CoffeeColors.coffeeLight,
+                ),
+              ),
+            );
           }
 
           return ListView.builder(

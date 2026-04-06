@@ -24,7 +24,16 @@ class PendingOrdersPage extends StatelessWidget {
           final orders = orderService.pendingOrders;
 
           if (orders.isEmpty) {
-            return const Center(child: Text("No pending orders!"));
+            return const Center(
+              child: Text(
+                "No pending orders at the moment!",
+                style: TextStyle(
+                  fontFamily: AppFonts.mainFont,
+                  fontSize: FontSize.md,
+                  color: CoffeeColors.coffeeLight,
+                ),
+              ),
+            );
           }
 
           return ListView.builder(
@@ -41,7 +50,7 @@ class PendingOrdersPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Order moved to Preparing!'),
-                      backgroundColor: CoffeeColors.warning,
+                      backgroundColor: CoffeeColors.error,
                     ),
                   );
                 },
