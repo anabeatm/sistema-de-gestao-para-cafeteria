@@ -13,7 +13,6 @@ class LowStockPage extends StatefulWidget {
 class _LowStockPageState extends State<LowStockPage> {
   @override
   Widget build(BuildContext context) {
-    final items = InventoryStore.getAll();
     final itemslow = InventoryStore.getLowStockItems();
 
     return Scaffold(
