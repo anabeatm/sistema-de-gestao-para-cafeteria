@@ -147,7 +147,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   childAspectRatio: 4.5,
                   children: [
                     _ActionButton(
-                      title: 'All Itens',
+                      title: 'All Items',
                       icon: Icons.list,
                       onTap: () => Navigator.pushNamed(
                         context,
@@ -179,19 +179,19 @@ class _InventoryPageState extends State<InventoryPage> {
                       ).then((_) => setState(() {})),
                     ),
                     _ActionButton(
-                      title: 'Movement',
-                      icon: Icons.swap_horiz_outlined,
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        Routes.inventoryMovement,
-                      ).then((_) => setState(() {})),
-                    ),
-                    _ActionButton(
                       title: 'Filtered List',
                       icon: Icons.filter_list_outlined,
                       onTap: () => Navigator.pushNamed(
                         context,
                         Routes.filteredList,
+                      ).then((_) => setState(() {})),
+                    ),
+                    _ActionButton(
+                      title: 'Movement',
+                      icon: Icons.swap_horiz_outlined,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.inventoryMovement,
                       ).then((_) => setState(() {})),
                     ),
                     _ActionButton(

@@ -3,6 +3,7 @@ import 'package:projeto_cafeteria/screens/home_page.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_add.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_list.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_lowstock.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
 
@@ -58,13 +59,13 @@ class MyApp extends StatelessWidget {
           Routes.home: (context) => const HomePage(),
           Routes.inventory: (context) => const InventoryPage(),
           Routes.inventoryList: (context) => const InventoryList(),
+          Routes.lowStock: (context) => const LowStockPage(),
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
+          
           Routes.inventoryEdit: (context) => const InventoryEditPage(),
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
-
           // Routes.inventoryStock: (context) => const InventoryStockPage(),
           // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
-          // Routes.lowStock: (context) => const LowStockPage(),
           // Routes.filteredList: (context) => const FilteredListPage(),
           // Routes.consumptionReport: (context) => const ConsumptionReportPage(),
           Routes.orders: (context) => const OrdersPage(),
