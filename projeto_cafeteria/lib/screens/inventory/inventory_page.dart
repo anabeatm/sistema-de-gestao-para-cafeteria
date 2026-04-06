@@ -147,6 +147,22 @@ class _InventoryPageState extends State<InventoryPage> {
                   childAspectRatio: 4.5,
                   children: [
                     _ActionButton(
+                      title: 'All Itens',
+                      icon: Icons.list,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.inventoryList,
+                      ).then((_) => setState(() {})),
+                    ),
+                    _ActionButton(
+                      title: 'Low Stock Items',
+                      icon: Icons.warning_amber_outlined,
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        Routes.lowStock,
+                      ).then((_) => setState(() {})),
+                    ),
+                    _ActionButton(
                       title: 'Add',
                       icon: Icons.add_box_outlined,
                       onTap: () => Navigator.pushNamed(
@@ -171,14 +187,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       ).then((_) => setState(() {})),
                     ),
                     _ActionButton(
-                      title: 'Low Stock Items',
-                      icon: Icons.warning_amber_outlined,
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        Routes.lowStock,
-                      ).then((_) => setState(() {})),
-                    ),
-                    _ActionButton(
                       title: 'Filtered List',
                       icon: Icons.filter_list_outlined,
                       onTap: () => Navigator.pushNamed(
@@ -196,62 +204,6 @@ class _InventoryPageState extends State<InventoryPage> {
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 16),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: CoffeeColors.beige,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          padding: const EdgeInsets.all(12),
-                          child: const Icon(
-                            Icons.inventory_2,
-                            color: CoffeeColors.coffeeBrown,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          'All Items',
-                          style: TextStyle(
-                            fontFamily: AppFonts.mainFont,
-                            fontSize: FontSize.xg,
-                            fontWeight: FontWeight.bold,
-                            color: CoffeeColors.coffeeBrown,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: CoffeeColors.beige,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      child: Text(
-                        '${items.length} items',
-                        style: TextStyle(
-                          fontFamily: AppFonts.mainFont,
-                          fontSize: FontSize.p,
-                          fontWeight: FontWeight.bold,
-                          color: CoffeeColors.coffeeBrown,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 12),
-
-                _ListInventoryItems(items: items),
               ],
             ),
           ],
@@ -298,134 +250,6 @@ class _ActionButton extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ListInventoryItems extends StatelessWidget {
-  final List<InventoryItem> items;
-
-  const _ListInventoryItems({required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: items.length,
-      separatorBuilder: (_, _) => const SizedBox(height: 12),
-      itemBuilder: (context, index) {
-        final item = items[index];
-
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                color: CoffeeColors.warmCream,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.name,
-                      style: const TextStyle(
-                        color: CoffeeColors.coffeeBrown,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.mainFont,
-                        fontSize: FontSize.md,
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: CoffeeColors.beige,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-                      child: Text(
-                        item.category.name,
-                        style: const TextStyle(
-                          fontSize: FontSize.p,
-                          fontFamily: AppFonts.mainFont,
-                          color: CoffeeColors.coffeeBrown,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Total',
-                          style: TextStyle(
-                            fontSize: FontSize.p,
-                            fontFamily: AppFonts.mainFont,
-                            color: CoffeeColors.coffeeLight,
-                          ),
-                        ),
-                        Text(
-                          '${item.quantity} ${item.unit.name}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: AppFonts.mainFont,
-                            color: item.isOutOfStock
-                                ? CoffeeColors.error
-                                : item.isLowStock
-                                ? CoffeeColors.warning
-                                : CoffeeColors.coffeeBrown,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Minimum',
-                          style: TextStyle(
-                            fontSize: FontSize.p,
-                            fontFamily: AppFonts.mainFont,
-                            color: CoffeeColors.coffeeLight,
-                          ),
-                        ),
-                        Text(
-                          '${item.minQuantity} ${item.unit.name}',
-                          style: const TextStyle(
-                            fontFamily: AppFonts.mainFont,
-                            color: CoffeeColors.coffeeBrown,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
