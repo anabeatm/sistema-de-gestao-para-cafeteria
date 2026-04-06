@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/screens/home_page.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_add.dart';
-import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_filterlist.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_list.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_lowstock.dart';
