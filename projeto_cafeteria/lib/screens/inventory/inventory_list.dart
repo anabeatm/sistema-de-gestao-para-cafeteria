@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/models/inventory_item.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_edit.dart';
 import 'package:projeto_cafeteria/stores/inventory_store.dart';
 import 'package:projeto_cafeteria/theme.dart';
 
@@ -206,32 +207,54 @@ class _ListInventoryItems extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 color: CoffeeColors.warmCream,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      item.name,
-                      style: const TextStyle(
-                        color: CoffeeColors.coffeeBrown,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.mainFont,
-                        fontSize: FontSize.md,
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: CoffeeColors.beige,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-                      child: Text(
-                        item.category.name,
-                        style: const TextStyle(
-                          fontSize: FontSize.p,
-                          fontFamily: AppFonts.mainFont,
-                          color: CoffeeColors.coffeeBrown,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.name,
+                          style: const TextStyle(
+                            color: CoffeeColors.coffeeBrown,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppFonts.mainFont,
+                            fontSize: FontSize.md,
+                          ),
                         ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: CoffeeColors.beige,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 9,
+                            vertical: 3,
+                          ),
+                          child: Text(
+                            item.category.name,
+                            style: const TextStyle(
+                              fontSize: FontSize.p,
+                              fontFamily: AppFonts.mainFont,
+                              color: CoffeeColors.coffeeBrown,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.edit,
+                        color: CoffeeColors.coffeeBrown,
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InventoryEditPage(item: item),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

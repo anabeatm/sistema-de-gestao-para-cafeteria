@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/config/routes.dart';
-import 'package:projeto_cafeteria/models/inventory_item.dart';
 import 'package:projeto_cafeteria/stores/inventory_store.dart';
 import 'package:projeto_cafeteria/theme.dart';
 
@@ -14,7 +13,6 @@ class InventoryPage extends StatefulWidget {
 class _InventoryPageState extends State<InventoryPage> {
   @override
   Widget build(BuildContext context) {
-    final items = InventoryStore.getAll();
     final itemslow = InventoryStore.getLowStockItems();
 
     return Scaffold(
@@ -168,14 +166,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       onTap: () => Navigator.pushNamed(
                         context,
                         Routes.inventoryAdd,
-                      ).then((_) => setState(() {})),
-                    ),
-                    _ActionButton(
-                      title: 'Edit',
-                      icon: Icons.edit_outlined,
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        Routes.inventoryEdit,
                       ).then((_) => setState(() {})),
                     ),
                     _ActionButton(

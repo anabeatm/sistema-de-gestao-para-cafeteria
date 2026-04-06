@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
           Routes.lowStock: (context) => const LowStockPage(),
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
           
-          Routes.inventoryEdit: (context) => const InventoryEditPage(),
+          // Routes.inventoryEdit: (context) => const InventoryEditPage(),
           Routes.inventoryMovement: (context) => const InventoryMovementPage(),
           // Routes.inventoryStock: (context) => const InventoryStockPage(),
           // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
