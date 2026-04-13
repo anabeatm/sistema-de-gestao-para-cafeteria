@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
-import 'package:projeto_cafeteria/config/routes.dart'; // Importante adicionar isso!
+import 'package:projeto_cafeteria/config/routes.dart';
 
 class SuccessPage extends StatelessWidget {
   const SuccessPage({super.key});
@@ -16,8 +16,7 @@ class SuccessPage extends StatelessWidget {
             const Icon(
               Icons.check_circle_outline,
               size: 120,
-              color:
-                  Colors.green, // Pode manter verde que dá sensação de sucesso!
+              color: Colors.green,
             ),
             const SizedBox(height: 24),
             const Text(
@@ -53,11 +52,9 @@ class SuccessPage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Em vez de dar 'pop', a gente força abrir a rota inicial do zero!
-                  // OBS: Confirme se a sua rota inicial chama Routes.home ou '/', e ajuste aqui se precisar.
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/', // Se a sua constante for Routes.home, troque para Routes.home
+                    '/',
                     (route) => false,
                   );
                 },

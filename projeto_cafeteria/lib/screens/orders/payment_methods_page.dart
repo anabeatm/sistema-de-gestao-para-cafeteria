@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
-import 'package:projeto_cafeteria/config/routes.dart'; // Importante para puxar o Routes
+import 'package:projeto_cafeteria/config/routes.dart';
 
 class PaymentMethodsPage extends StatelessWidget {
   const PaymentMethodsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 1. Recebe o total que foi enviado da OrderSummaryPage
     final double total =
         ModalRoute.of(context)?.settings.arguments as double? ?? 0.0;
 
@@ -87,11 +86,9 @@ class PaymentMethodsPage extends StatelessWidget {
                         color: CoffeeColors.cream,
                       ),
                       onTap: () {
-                        // 2. Manda o pacote para a tela de processamento
                         Navigator.pushNamed(
                           context,
-                          Routes
-                              .paymentProcessing, // Certifique-se que essa variável existe no config/routes.dart!
+                          Routes.paymentProcessing,
                           arguments: {'total': total, 'method': method['name']},
                         );
                       },

@@ -67,7 +67,7 @@ class ProductDetailPage extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                          color: CoffeeColors.coffeeBrown,
                         ),
                       ),
                       Text(
@@ -99,7 +99,7 @@ class ProductDetailPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                      color: CoffeeColors.coffeeBrown,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -107,8 +107,8 @@ class ProductDetailPage extends StatelessWidget {
                     "A carefully crafted item from our menu to bring you the best experience.",
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.bold, // Aplicado aqui
-                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown,
                     ),
                   ),
 
@@ -119,7 +119,7 @@ class ProductDetailPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                      color: CoffeeColors.coffeeBrown,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -128,7 +128,7 @@ class ProductDetailPage extends StatelessWidget {
                       "Ready to eat item.",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                        color: CoffeeColors.coffeeBrown,
                       ),
                     )
                   else
@@ -144,8 +144,8 @@ class ProductDetailPage extends StatelessWidget {
                         child: Text(
                           "• ${ingredient.amount}$itemUnit $itemName",
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold, // Aplicado aqui
-                            color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                            fontWeight: FontWeight.bold,
+                            color: CoffeeColors.coffeeBrown,
                           ),
                         ),
                       );
@@ -158,7 +158,7 @@ class ProductDetailPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                      color: CoffeeColors.coffeeBrown,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -231,8 +231,7 @@ class ProductDetailPage extends StatelessWidget {
       child: Text(
         size,
         style: const TextStyle(
-          color: CoffeeColors
-              .coffeeBrown, // Deixei o texto do Size da cor do preço também
+          color: CoffeeColors.coffeeBrown,
           fontWeight: FontWeight.bold,
         ),
       ),

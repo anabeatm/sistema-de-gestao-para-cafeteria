@@ -53,7 +53,6 @@ class _PaymentProcessingPageState extends State<PaymentProcessingPage> {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            // Resumo do Valor
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),

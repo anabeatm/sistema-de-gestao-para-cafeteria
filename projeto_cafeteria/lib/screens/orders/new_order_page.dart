@@ -13,12 +13,9 @@ class NewOrderPage extends StatefulWidget {
 }
 
 class _NewOrdersPageState extends State<NewOrderPage> {
-  // Lista que vai guardar os itens reais que vieram do banco de dados/store
   List<MenuProduct> displayedItems = [];
-  // Lista que guarda os itens que já estavam no carrinho antes de entrar aqui
   List<MenuProduct> currentCart = [];
 
-  // <-- VARIAVEL DEFINIDA AQUI!
   int? selectedTable;
   bool initialized = false;
 
@@ -30,22 +27,18 @@ class _NewOrdersPageState extends State<NewOrderPage> {
   @override
   Widget build(BuildContext context) {
     if (!initialized) {
-      // Recebe o pacote de dados da CategoriesPage
       final args =
           ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
       if (args != null) {
         currentCart = List.from(args['cart'] ?? []);
 
-        // <-- RECEBENDO O VALOR DA MESA AQUI!
         selectedTable = args['table'];
 
         final MenuCategory category = args['category'];
 
-        // Puxa do "Banco de Dados" apenas os itens daquela categoria
         final storeItems = MenuStore.getByCategory(category);
 
-        // Preenche a tela sincronizando as quantidades que já estavam no carrinho
         displayedItems = storeItems.map((storeItem) {
           final cartItem = currentCart
               .where((c) => c.id == storeItem.id)
@@ -257,14 +250,12 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                 ),
                 onPressed: (totalItems > 0 && selectedTable != null)
                     ? () {
-                        // Usa o pushNamed para o main.dart desempacotar
                         Navigator.pushNamed(
                           context,
                           Routes.itemsSummary,
                           arguments: {
                             'order': _getMergedCart(),
-                            'table':
-                                selectedTable, // <-- Enviando a mesa pro Summary!
+                            'table': selectedTable,
                           },
                         );
                       }

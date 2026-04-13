@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/config/routes.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:projeto_cafeteria/models/menu_product.dart';
-import 'package:projeto_cafeteria/models/enums/menu_category_enums.dart'; // Importante para o Enum
+import 'package:projeto_cafeteria/models/enums/menu_category_enums.dart';
 import 'package:projeto_cafeteria/screens/orders/order_sumary_page.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -14,7 +14,6 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   int? selectedTable;
-  // O carrinho começa vazio e vai enchendo conforme o usuário navega
   List<MenuProduct> currentOrder = [];
 
   double get totalValue =>
@@ -23,7 +22,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
   int get totalItems =>
       currentOrder.fold(0, (sum, item) => sum + item.quantity);
 
-  // Adicionamos a tag 'enum' para ligar o visual com o "Banco de Dados"
   final List<Map<String, dynamic>> categories = [
     {
       'name': 'Hot Drinks',
@@ -104,7 +102,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
                 return InkWell(
                   onTap: () async {
-                    // Aqui empacotamos o carrinho, a mesa e a categoria
                     final result = await Navigator.pushNamed(
                       context,
                       Routes.newOrder,
@@ -115,7 +112,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       },
                     );
 
-                    // Atualiza o carrinho com os dados que voltaram da NewOrderPage
                     if (result != null && result is List<MenuProduct>) {
                       setState(() => currentOrder = result);
                     }
@@ -204,13 +200,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
                 onPressed: (totalItems > 0 && selectedTable != null)
                     ? () {
-                        // Usa o pushNamed para o main.dart desempacotar
                         Navigator.pushNamed(
                           context,
                           Routes.itemsSummary,
                           arguments: {
                             'order': currentOrder,
-                            'table': selectedTable, // <-- Enviando a mesa!
+                            'table': selectedTable,
                           },
                         );
                       }
