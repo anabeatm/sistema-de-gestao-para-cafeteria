@@ -20,7 +20,11 @@ import 'package:projeto_cafeteria/screens/orders/order_categories_page.dart';
 import 'package:projeto_cafeteria/screens/orders/product_datail_page.dart';
 import 'package:projeto_cafeteria/screens/orders/success_order_page.dart';
 import 'package:projeto_cafeteria/screens/orders/order_sumary_page.dart';
+import 'package:projeto_cafeteria/screens/orders/payment_methods_page.dart';
+import 'package:projeto_cafeteria/screens/orders/orders_dashboard_page.dart';
 import 'package:projeto_cafeteria/models/menu_product.dart';
+import 'package:projeto_cafeteria/screens/orders/payment_processing_page.dart';
+import 'package:projeto_cafeteria/screens/menu_page.dart';
 
 import 'package:projeto_cafeteria/config/routes.dart';
 
@@ -72,10 +76,28 @@ class MyApp extends StatelessWidget {
           Routes.success: (context) => const SuccessPage(),
           Routes.productDetail: (context) => const ProductDetailPage(),
           Routes.itemsSummary: (context) {
-            final order =
-                ModalRoute.of(context)!.settings.arguments as List<MenuProduct>;
-            return OrderSummaryPage(order: order);
+            final args =
+                ModalRoute.of(context)!.settings.arguments
+                    as Map<String, dynamic>;
+            final order = args['order'] as List<MenuProduct>;
+            final table = args['table'] as int?;
+
+            return OrderSummaryPage(order: order, table: table);
           },
+          Routes.paymentMethods: (context) => const PaymentMethodsPage(),
+          Routes.ordersDashboard: (context) => const OrdersDashboardPage(),
+          Routes.paymentProcessing: (context) {
+            final args =
+                ModalRoute.of(context)!.settings.arguments
+                    as Map<String, dynamic>;
+            return PaymentProcessingPage(
+              total: args['total'],
+              method: args['method'],
+            );
+          },
+
+          Routes.menuPage: (context) => const MenuPage(),
+
           Routes.kitchen: (context) => const KitchenPage(),
           Routes.pendingOrders: (context) => const PendingOrdersPage(),
           Routes.preparingOrders: (context) => const PreparingOrdersPage(),

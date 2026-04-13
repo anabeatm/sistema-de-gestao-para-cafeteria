@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/config/routes.dart';
 import 'package:projeto_cafeteria/theme.dart';
 import 'package:projeto_cafeteria/models/menu_product.dart';
+import 'package:projeto_cafeteria/models/enums/menu_category_enums.dart';
 import 'package:projeto_cafeteria/screens/orders/order_sumary_page.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -13,12 +14,7 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   int? selectedTable;
-
-  List<MenuProduct> currentOrder = [
-    MenuProduct(name: "Espresso", price: 8.50),
-    MenuProduct(name: "Cappuccino", price: 12.00),
-    MenuProduct(name: "Croissant", price: 9.00),
-  ];
+  List<MenuProduct> currentOrder = [];
 
   double get totalValue =>
       currentOrder.fold(0, (sum, item) => sum + item.price * item.quantity);
@@ -27,10 +23,22 @@ class _CategoriesPageState extends State<CategoriesPage> {
       currentOrder.fold(0, (sum, item) => sum + item.quantity);
 
   final List<Map<String, dynamic>> categories = [
-    {'name': 'Hot Drinks', 'icon': Icons.coffee_rounded},
-    {'name': 'Cold Drinks', 'icon': Icons.local_drink},
-    {'name': 'Savory snacks', 'icon': Icons.bakery_dining_rounded},
-    {'name': 'Sweets', 'icon': Icons.cake_rounded},
+    {
+      'name': 'Hot Drinks',
+      'icon': Icons.coffee_rounded,
+      'enum': MenuCategory.hotDrinks,
+    },
+    {
+      'name': 'Cold Drinks',
+      'icon': Icons.local_drink,
+      'enum': MenuCategory.coldDrinks,
+    },
+    {
+      'name': 'Savory snacks',
+      'icon': Icons.bakery_dining_rounded,
+      'enum': MenuCategory.savorySnacks,
+    },
+    {'name': 'Sweets', 'icon': Icons.cake_rounded, 'enum': MenuCategory.sweets},
   ];
 
   @override
@@ -58,7 +66,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
               title: Text(
                 selectedTable == null ? "Select Table" : "Table $selectedTable",
-                style: TextStyle(
+                style: const TextStyle(
                   color: CoffeeColors.coffeeDark,
                   fontWeight: FontWeight.bold,
                   fontFamily: AppFonts.mainFont,
@@ -97,7 +105,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     final result = await Navigator.pushNamed(
                       context,
                       Routes.newOrder,
-                      arguments: currentOrder,
+                      arguments: {
+                        'cart': currentOrder,
+                        'category': cat['enum'],
+                        'table': selectedTable,
+                      },
                     );
 
                     if (result != null && result is List<MenuProduct>) {
@@ -152,58 +164,62 @@ class _CategoriesPageState extends State<CategoriesPage> {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "$totalItems items",
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "$totalItems items",
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                  Text(
+                    "R\$ ${totalValue.toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown,
+                    ),
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: CoffeeColors.coffeeDark,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 15,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  disabledBackgroundColor: Colors.grey[300],
                 ),
-                Text(
-                  "R\$ ${totalValue.toStringAsFixed(2)}",
-                  style: const TextStyle(
-                    fontSize: 18,
+                onPressed: (totalItems > 0 && selectedTable != null)
+                    ? () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.itemsSummary,
+                          arguments: {
+                            'order': currentOrder,
+                            'table': selectedTable,
+                          },
+                        );
+                      }
+                    : null,
+                child: const Text(
+                  "Finish",
+                  style: TextStyle(
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    color: CoffeeColors.coffeeBrown,
                   ),
                 ),
-              ],
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: CoffeeColors.coffeeDark,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                disabledBackgroundColor: Colors.grey[300],
               ),
-              onPressed: (totalItems > 0 && selectedTable != null)
-                  ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => OrderSummaryPage(order: currentOrder),
-                        ),
-                      );
-                    }
-                  : null,
-              child: const Text(
-                "Finish",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

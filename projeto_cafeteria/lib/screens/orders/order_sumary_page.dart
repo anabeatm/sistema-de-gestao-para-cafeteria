@@ -5,8 +5,10 @@ import 'package:projeto_cafeteria/config/routes.dart';
 
 class OrderSummaryPage extends StatelessWidget {
   final List<MenuProduct> order;
+  final int? table; // <-- ADICIONADO AQUI para receber a mesa
 
-  const OrderSummaryPage({super.key, required this.order});
+  // Construtor atualizado para aceitar a mesa
+  const OrderSummaryPage({super.key, required this.order, this.table});
 
   double get total =>
       order.fold(0, (sum, item) => sum + item.price * item.quantity);
@@ -27,7 +29,20 @@ class OrderSummaryPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (table != null) ...[
+              Text(
+                "Table $table",
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: CoffeeColors.coffeeDark,
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+
             Expanded(
               child: ListView.builder(
                 itemCount: filteredItems.length,
@@ -73,7 +88,13 @@ class OrderSummaryPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("$totalItems items"),
+                      Text(
+                        "$totalItems items",
+                        style: TextStyle(
+                          color: CoffeeColors.coffeeDark,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Text(
                         "R\$ ${total.toStringAsFixed(2)}",
                         style: const TextStyle(
@@ -94,7 +115,11 @@ class OrderSummaryPage extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.success);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.paymentMethods,
+                          arguments: total,
+                        );
                       },
                       child: const Text(
                         "Confirm Order",

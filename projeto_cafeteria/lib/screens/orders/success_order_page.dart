@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
+import 'package:projeto_cafeteria/config/routes.dart';
 
 class SuccessPage extends StatelessWidget {
   const SuccessPage({super.key});
@@ -20,20 +21,52 @@ class SuccessPage extends StatelessWidget {
             const SizedBox(height: 24),
             const Text(
               "Order Sent!",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: CoffeeColors.coffeeDark,
+                fontFamily: AppFonts.mainFont,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
                 "The order is being prepared by the kitchen.",
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: CoffeeColors.coffeeBrown,
+                  fontFamily: AppFonts.mainFont,
+                ),
               ),
             ),
             const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).popUntil((route) => route.isFirst),
-              child: const Text("Back to Dashboard"),
+            SizedBox(
+              width: 250,
+              height: 55,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: CoffeeColors.coffeeBrown,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/',
+                    (route) => false,
+                  );
+                },
+                child: const Text(
+                  "Back to Dashboard",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

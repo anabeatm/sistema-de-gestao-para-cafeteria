@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_cafeteria/nav.dart';
 import 'package:projeto_cafeteria/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:projeto_cafeteria/config/routes.dart';
 import 'package:projeto_cafeteria/models/menu_product.dart';
+import 'package:projeto_cafeteria/models/enums/menu_category_enums.dart';
+import 'package:projeto_cafeteria/stores/menu_store.dart'; // Ajuste o caminho se for stores ou store
 import 'package:projeto_cafeteria/screens/orders/order_sumary_page.dart';
 
 class NewOrderPage extends StatefulWidget {
@@ -14,32 +13,51 @@ class NewOrderPage extends StatefulWidget {
 }
 
 class _NewOrdersPageState extends State<NewOrderPage> {
-  List<MenuProduct> menuItems = [
-    MenuProduct(name: "Espresso", price: 19.50),
-    MenuProduct(name: "Croassaint", price: 12.00),
-    MenuProduct(name: "Capuccino", price: 20.00),
-    MenuProduct(name: "Iced tea", price: 20.00),
-    MenuProduct(name: "Chocolate Cookie", price: 8.00),
-    MenuProduct(name: "Oreo Cheesecake", price: 25.00),
-    MenuProduct(name: "Orange Juice", price: 12.00),
-    MenuProduct(name: "Matcha", price: 20.00),
-    MenuProduct(name: "Lemon Cheesecake", price: 27.00),
-  ];
+  List<MenuProduct> displayedItems = [];
+  List<MenuProduct> currentCart = [];
+
+  int? selectedTable;
+  bool initialized = false;
 
   double get total =>
-      menuItems.fold(0, (sum, item) => sum + (item.price * item.quantity));
-  int get totalItems => menuItems.fold(0, (sum, item) => sum + (item.quantity));
+      displayedItems.fold(0, (sum, item) => sum + (item.price * item.quantity));
+  int get totalItems =>
+      displayedItems.fold(0, (sum, item) => sum + (item.quantity));
 
   @override
   Widget build(BuildContext context) {
+    if (!initialized) {
+      final args =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+      if (args != null) {
+        currentCart = List.from(args['cart'] ?? []);
+
+        selectedTable = args['table'];
+
+        final MenuCategory category = args['category'];
+
+        final storeItems = MenuStore.getByCategory(category);
+
+        displayedItems = storeItems.map((storeItem) {
+          final cartItem = currentCart
+              .where((c) => c.id == storeItem.id)
+              .firstOrNull;
+          return storeItem.copyWith(quantity: cartItem?.quantity ?? 0);
+        }).toList();
+      }
+      initialized = true;
+    }
+
     const isLoading = false;
+
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
         backgroundColor: CoffeeColors.coffeeLight,
         leading: IconButton(
           icon: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: CoffeeColors.cream,
               borderRadius: BorderRadius.circular(8),
@@ -50,9 +68,9 @@ class _NewOrdersPageState extends State<NewOrderPage> {
               size: 20,
             ),
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: _saveAndPopBack,
         ),
-        title: Text(
+        title: const Text(
           "Add new order",
           style: TextStyle(
             fontFamily: AppFonts.mainFont,
@@ -70,59 +88,6 @@ class _NewOrdersPageState extends State<NewOrderPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const Text(
-                  //   'Table selection',
-                  //   style: TextStyle(
-                  //     fontFamily: AppFonts.mainFont,
-                  //     fontSize: 18,
-                  //     fontWeight: FontWeight.bold,
-                  //     color: CoffeeColors.coffeeBrown,
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 16),
-
-                  // ListTile(
-                  //   tileColor: CoffeeColors.beige,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(12),
-                  //   ),
-                  //   leading: const Icon(
-                  //     Icons.table_restaurant,
-                  //     color: CoffeeColors.coffeeDark,
-                  //   ),
-                  //   title: const Text(
-                  //     "Selected table",
-                  //     style: TextStyle(
-                  //       color: CoffeeColors.coffeeDark,
-                  //       fontFamily: AppFonts.mainFont,
-                  //     ),
-                  //   ),
-                  //   trailing: Text(
-                  //     selectedTable == null
-                  //         ? "Click here to select"
-                  //         : "Table $selectedTable",
-                  //     style: const TextStyle(
-                  //       color: CoffeeColors.coffeeBrown,
-                  //       fontFamily: AppFonts.mainFont,
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 17,
-                  //     ),
-                  //   ),
-                  //   onTap: () async {
-                  //     // Continua rodando sem travar ---> Futures
-                  //     final result =
-                  //         await Navigator.pushNamed(
-                  //               context,
-                  //               // espera até receber essa informação apra descer para linha de baixo do IF
-                  //               Routes.tableSelection,
-                  //               arguments: selectedTable,
-                  //             )
-                  //             as int?;
-                  //     if (result != null) {
-                  //       setState(() => selectedTable = result);
-                  //     }
-                  //   },
-                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24.0),
                     child: Row(
@@ -130,7 +95,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: CoffeeColors.latte.withValues(alpha: 0.3),
+                            color: CoffeeColors.latte.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(
@@ -140,7 +105,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                           ),
                         ),
                         const SizedBox(width: 12),
-                        Text(
+                        const Text(
                           "Order Items",
                           style: TextStyle(
                             fontSize: 18,
@@ -155,9 +120,9 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: menuItems.length,
+                    itemCount: displayedItems.length,
                     itemBuilder: (context, index) {
-                      final item = menuItems[index];
+                      final item = displayedItems[index];
                       return Card(
                         margin: const EdgeInsets.only(bottom: 12),
                         color: CoffeeColors.coffeeLight,
@@ -173,7 +138,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                         child: ListTile(
                           title: Text(
                             item.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: CoffeeColors.cream,
                               fontWeight: FontWeight.bold,
                               fontFamily: AppFonts.mainFont,
@@ -181,7 +146,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                           ),
                           subtitle: Text(
                             "R\$ ${item.price.toStringAsFixed(2)}",
-                            style: TextStyle(color: CoffeeColors.cream),
+                            style: const TextStyle(color: CoffeeColors.cream),
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -243,7 +208,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
           color: CoffeeColors.cream,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, -5),
             ),
@@ -258,20 +223,19 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$totalItems selected items",
+                    "$totalItems items",
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   Text(
                     "R\$ ${total.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: CoffeeColors.coffeeBrown,
                     ),
                   ),
                 ],
               ),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CoffeeColors.coffeeDark,
@@ -284,13 +248,15 @@ class _NewOrdersPageState extends State<NewOrderPage> {
                   ),
                   disabledBackgroundColor: Colors.grey[300],
                 ),
-                onPressed: (totalItems > 0)
+                onPressed: (totalItems > 0 && selectedTable != null)
                     ? () {
-                        Navigator.push(
+                        Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) => OrderSummaryPage(order: menuItems),
-                          ),
+                          Routes.itemsSummary,
+                          arguments: {
+                            'order': _getMergedCart(),
+                            'table': selectedTable,
+                          },
                         );
                       }
                     : null,
@@ -309,11 +275,20 @@ class _NewOrdersPageState extends State<NewOrderPage> {
     );
   }
 
-  Widget _buildOrderCard(BuildContext buildContext) {
-    return Card(
-      color: CoffeeColors.mocha,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: ListTile(),
-    );
+  // Função auxiliar para juntar o que já tinha no carrinho com o que foi editado agora
+  List<MenuProduct> _getMergedCart() {
+    final mergedCart = List<MenuProduct>.from(currentCart);
+    for (var item in displayedItems) {
+      mergedCart.removeWhere((c) => c.id == item.id);
+      if (item.quantity > 0) {
+        mergedCart.add(item);
+      }
+    }
+    return mergedCart;
+  }
+
+  // Função para voltar para Categorias salvando os dados
+  void _saveAndPopBack() {
+    Navigator.pop(context, _getMergedCart());
   }
 }
