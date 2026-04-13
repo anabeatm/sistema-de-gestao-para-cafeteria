@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_cafeteria/theme.dart';
+import 'package:projeto_cafeteria/models/menu_product.dart';
+import 'package:projeto_cafeteria/stores/inventory_store.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final MenuProduct? product =
+        ModalRoute.of(context)?.settings.arguments as MenuProduct?;
+
+    if (product == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Error")),
+        body: const Center(
+          child: Text(
+            "Product not found",
+            style: TextStyle(
+              color: CoffeeColors.coffeeBrown,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
@@ -20,9 +40,9 @@ class ProductDetailPage extends StatelessWidget {
             Container(
               height: 260,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: CoffeeColors.beige,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(24),
                   bottomRight: Radius.circular(24),
                 ),
@@ -42,16 +62,17 @@ class ProductDetailPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Special Latte",
-                        style: TextStyle(
+                      Text(
+                        product.name,
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          color: CoffeeColors.coffeeBrown, // Aplicado aqui
                         ),
                       ),
-                      const Text(
-                        "R\$ 18,00",
-                        style: TextStyle(
+                      Text(
+                        "R\$ ${product.price.toStringAsFixed(2)}",
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: CoffeeColors.coffeeBrown,
@@ -63,39 +84,82 @@ class ProductDetailPage extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      _buildTag("Hot"),
-                      _buildTag("Coffee"),
-                      _buildTag("Sweet"),
+                      _buildTag(
+                        product.category.name
+                            .replaceAll('Drinks', ' Drinks')
+                            .replaceAll('Snacks', ' Snacks'),
+                      ),
                     ],
                   ),
 
                   const SizedBox(height: 20),
 
-                  // 🔥 DESCRIÇÃO
                   const Text(
                     "Description",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                    ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    "A smooth espresso blended with creamy steamed milk and finished with a touch of caramel syrup. Perfect for a cozy afternoon.",
-                    style: TextStyle(fontSize: 14),
+                    "A carefully crafted item from our menu to bring you the best experience.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold, // Aplicado aqui
+                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                    ),
                   ),
 
                   const SizedBox(height: 20),
 
                   const Text(
                     "Ingredients",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  const Text("• Espresso\n• Milk\n• Caramel syrup"),
+                  if (product.recipe.isEmpty)
+                    const Text(
+                      "Ready to eat item.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                      ),
+                    )
+                  else
+                    ...product.recipe.map((ingredient) {
+                      final inventoryItem = InventoryStore.getById(
+                        ingredient.inventoryId,
+                      );
+                      final itemName =
+                          inventoryItem?.name ?? "Unknown Ingredient";
+                      final itemUnit = inventoryItem?.unit.name ?? "";
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Text(
+                          "• ${ingredient.amount}$itemUnit $itemName",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold, // Aplicado aqui
+                            color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                          ),
+                        ),
+                      );
+                    }),
 
                   const SizedBox(height: 20),
 
                   const Text(
                     "Size",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: CoffeeColors.coffeeBrown, // Aplicado aqui
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -120,8 +184,11 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                       child: const Text(
-                        "Add to Order",
-                        style: TextStyle(color: Colors.white),
+                        "Back to Menu",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -143,8 +210,12 @@ class ProductDetailPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        text,
-        style: const TextStyle(fontSize: 12, color: CoffeeColors.coffeeDark),
+        text.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 12,
+          color: CoffeeColors.coffeeDark,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -157,7 +228,14 @@ class ProductDetailPage extends StatelessWidget {
         border: Border.all(color: CoffeeColors.coffeeBrown),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(size, style: TextStyle(color: CoffeeColors.coffeeDark)),
+      child: Text(
+        size,
+        style: const TextStyle(
+          color: CoffeeColors
+              .coffeeBrown, // Deixei o texto do Size da cor do preço também
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

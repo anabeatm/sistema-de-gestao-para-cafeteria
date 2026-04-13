@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            Expanded( 
+            Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                     icon: Icons.receipt_long,
                     title: "Orders",
                     description: "View customer orders",
-                    route: Routes.orders,
+                    route: Routes.ordersDashboard,
                   ),
                   _buildButton(
                     context,
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                     icon: Icons.menu_book,
                     title: "Menu",
                     description: "View menu",
-                    route: Routes.menu,
+                    route: Routes.menuPage,
                   ),
                 ],
               ),
@@ -118,9 +118,7 @@ class HomePage extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         padding: const EdgeInsets.all(12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
