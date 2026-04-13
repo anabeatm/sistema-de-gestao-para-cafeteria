@@ -14,7 +14,6 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   int? selectedTable;
-
   // O carrinho começa vazio e vai enchendo conforme o usuário navega
   List<MenuProduct> currentOrder = [];
 
