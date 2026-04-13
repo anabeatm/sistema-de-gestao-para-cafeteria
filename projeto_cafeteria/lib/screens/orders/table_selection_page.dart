@@ -12,11 +12,7 @@ class TableSelectionPage extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments as int?;
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
-      appBar: AppBar(
-        title: const Text("Select table"),
-        backgroundColor: CoffeeColors.coffeeLight,
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("Select table"), centerTitle: true),
       body: GridView.builder(
         padding: const EdgeInsets.all(20),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

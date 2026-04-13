@@ -54,7 +54,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
-        backgroundColor: CoffeeColors.coffeeLight,
+        // backgroundColor: CoffeeColors.coffeeLight,
         leading: IconButton(
           icon: Container(
             padding: const EdgeInsets.all(8),
@@ -74,7 +74,7 @@ class _NewOrdersPageState extends State<NewOrderPage> {
           "Add new order",
           style: TextStyle(
             fontFamily: AppFonts.mainFont,
-            color: CoffeeColors.cream,
+            color: CoffeeColors.coffeeBrown,
           ),
         ),
         centerTitle: true,

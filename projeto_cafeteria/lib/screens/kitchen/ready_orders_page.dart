@@ -16,8 +16,7 @@ class ReadyOrdersPage extends StatelessWidget {
           'Ready to go',
           style: TextStyle(fontFamily: AppFonts.mainFont),
         ),
-        backgroundColor: CoffeeColors.success,
-        foregroundColor: Colors.white,
+        foregroundColor: CoffeeColors.coffeeBrown,
       ),
       body: Consumer<OrderService>(
         builder: (context, orderService, child) {
@@ -45,14 +44,14 @@ class ReadyOrdersPage extends StatelessWidget {
               return KitchenOrderCard(
                 order: order,
                 nextStatus: 'Completed',
-                color: CoffeeColors.success,
+                color: CoffeeColors.coffeeLight,
                 onActionPressed: () {
                   orderService.moveToCompleted(order);
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Order completed and delivered!'),
-                      backgroundColor: CoffeeColors.success,
+                      backgroundColor: CoffeeColors.coffeeBrown,
                     ),
                   );
                 },

@@ -24,7 +24,6 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
       appBar: AppBar(
-        backgroundColor: CoffeeColors.coffeeLight,
         leading: IconButton(
           icon: Container(
             padding: const EdgeInsets.all(8),
@@ -44,7 +43,7 @@ class _MenuPageState extends State<MenuPage> {
           "Digital Menu",
           style: TextStyle(
             fontFamily: AppFonts.mainFont,
-            color: CoffeeColors.cream,
+            color: CoffeeColors.coffeeBrown,
           ),
         ),
         centerTitle: true,

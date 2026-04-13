@@ -9,11 +9,7 @@ class OrdersDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CoffeeColors.cream,
-      appBar: AppBar(
-        title: const Text("Orders Management"),
-        backgroundColor: CoffeeColors.coffeeLight,
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("Orders Management"), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
