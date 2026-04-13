@@ -6,12 +6,8 @@ class Routes {
   static String lowStock = '/inventory/low-stock-list';
   static String inventoryAdd = '/inventory/add';
   static String inventoryEdit = '/inventory/edit';
-  static const filteredList = '/inventory/filtered';
-  
-  static String inventoryMovement = '/inventory/movement';
-  static const inventoryStock = '/inventory/stock';
-  static const inventoryHistory = '/inventory/history';
-  static const consumptionReport = '/inventory/report';
+  static const inventoryFilteredList = '/inventory/filtered';
+  static const inventoryReport = '/inventory/self-report';
 
   static String orders = '/orders';
   static String newOrder = '/orders/new';

@@ -173,15 +173,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       icon: Icons.filter_list_outlined,
                       onTap: () => Navigator.pushNamed(
                         context,
-                        Routes.filteredList,
-                      ).then((_) => setState(() {})),
-                    ),
-                    _ActionButton(
-                      title: 'Movement',
-                      icon: Icons.swap_horiz_outlined,
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        Routes.inventoryMovement,
+                        Routes.inventoryFilteredList,
                       ).then((_) => setState(() {})),
                     ),
                     _ActionButton(
@@ -189,7 +181,7 @@ class _InventoryPageState extends State<InventoryPage> {
                       icon: Icons.bar_chart_outlined,
                       onTap: () => Navigator.pushNamed(
                         context,
-                        Routes.consumptionReport,
+                        Routes.inventoryReport,
                       ).then((_) => setState(() {})),
                     ),
                   ],

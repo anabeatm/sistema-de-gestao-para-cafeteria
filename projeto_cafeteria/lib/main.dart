@@ -4,8 +4,9 @@ import 'package:projeto_cafeteria/screens/inventory/inventory_add.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_filterlist.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_list.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_lowstock.dart';
-import 'package:projeto_cafeteria/screens/inventory/inventory_movement.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_report_movement.dart';
 import 'package:projeto_cafeteria/screens/inventory/inventory_page.dart';
+import 'package:projeto_cafeteria/screens/inventory/inventory_report.dart';
 
 import 'package:projeto_cafeteria/screens/kitchen/kitchen_page.dart';
 import 'package:projeto_cafeteria/screens/kitchen/pending_orders_page.dart';
@@ -61,12 +62,9 @@ class MyApp extends StatelessWidget {
           Routes.inventoryList: (context) => const InventoryList(),
           Routes.lowStock: (context) => const LowStockPage(),
           Routes.inventoryAdd: (context) => const InventoryAddPage(),
-          Routes.filteredList: (context) => const InventoryFilterList(),
-
-          Routes.inventoryMovement: (context) => const InventoryMovementPage(),
-          // Routes.inventoryStock: (context) => const InventoryStockPage(),
-          // Routes.inventoryHistory: (context) => const InventoryHistoryPage(),
-          // Routes.consumptionReport: (context) => const ConsumptionReportPage(),
+          Routes.inventoryFilteredList: (context) =>
+              const InventoryFilterList(),
+          Routes.inventoryReport: (context) => const InventoryReportPage(),
           Routes.orders: (context) => const OrdersPage(),
           Routes.newOrder: (context) => const NewOrderPage(),
           Routes.tableSelection: (context) => const TableSelectionPage(),
